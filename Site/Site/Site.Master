@@ -1,0 +1,277 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Site.master.cs" Inherits="Site.SiteMaster" %>
+<script runat="server">
+    String adi = "";
+    String soyadi = "";
+    protected void Page_Load(object sender, EventArgs e)
+    {
+        if (Session["id"] != null) { 
+            // oturum var
+            adi = Session["adi"].ToString();
+            soyadi = Session["soyadi"].ToString();
+        }
+    }
+</script>
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head runat="server">
+    <meta charset="utf-8" />
+    <title><%: Page.Title %> - Sitemizin Başlığı</title>
+    <asp:PlaceHolder runat="server">     
+          <%: Scripts.Render("~/bundles/modernizr") %>
+    </asp:PlaceHolder>  
+    <webopt:BundleReference runat="server" Path="~/Content/css" /> 
+    <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+    <meta name="viewport" content="width=device-width" />
+    <asp:ContentPlaceHolder runat="server" ID="HeadContent" />
+</head>
+<body>
+    <form runat="server">
+    <asp:ScriptManager runat="server">
+        <Scripts>
+            <%--Framework Scripts--%>
+            <asp:ScriptReference Name="MsAjaxBundle" />
+            <asp:ScriptReference Name="jquery" />
+            <asp:ScriptReference Name="jquery.ui.combined" />
+            <asp:ScriptReference Name="WebForms.js" Assembly="System.Web" Path="~/Scripts/WebForms/WebForms.js" />
+            <asp:ScriptReference Name="WebUIValidation.js" Assembly="System.Web" Path="~/Scripts/WebForms/WebUIValidation.js" />
+            <asp:ScriptReference Name="MenuStandards.js" Assembly="System.Web" Path="~/Scripts/WebForms/MenuStandards.js" />
+            <asp:ScriptReference Name="GridView.js" Assembly="System.Web" Path="~/Scripts/WebForms/GridView.js" />
+            <asp:ScriptReference Name="DetailsView.js" Assembly="System.Web" Path="~/Scripts/WebForms/DetailsView.js" />
+            <asp:ScriptReference Name="TreeView.js" Assembly="System.Web" Path="~/Scripts/WebForms/TreeView.js" />
+            <asp:ScriptReference Name="WebParts.js" Assembly="System.Web" Path="~/Scripts/WebForms/WebParts.js" />
+            <asp:ScriptReference Name="Focus.js" Assembly="System.Web" Path="~/Scripts/WebForms/Focus.js" />
+            <asp:ScriptReference Name="WebFormsBundle" />
+            <%--Site Scripts--%>
+
+        </Scripts>
+    </asp:ScriptManager>
+
+
+        <script>
+            $(document).ready(function () {
+                // Cache the elements we'll need
+                var menu = $('#cssmenu');
+                var menuList = menu.find('ul:first');
+                var listItems = menu.find('li').not('#responsive-tab');
+
+                // Create responsive trigger
+                menuList.prepend('<li id="responsive-tab"><a href="#">Menu</a></li>');
+
+                // Toggle menu visibility
+                menu.on('click', '#responsive-tab', function () {
+                    listItems.slideToggle('fast');
+                    listItems.addClass('collapsed');
+                });
+            })
+        </script>
+
+
+    <header>
+        <div class="content-wrapper">
+           
+            
+
+            <style>@import url(http://fonts.googleapis.com/css?family=Open+Sans:400,600,300);
+#cssmenu {
+  font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, Sans-Serif;
+  font-size: 10px;
+  line-height: 15px;
+  text-transform: uppercase;
+  text-align: left;
+}
+#cssmenu > ul {
+  width: auto;
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+  background: #ffffff;
+  border: 1px solid #ece6e8;
+  border-bottom: 3px solid #d9ced2;
+  -webkit-border-radius: 2px;
+  -moz-border-radius: 2px;
+  -o-border-radius: 2px;
+  border-radius: 2px;
+}
+#cssmenu > ul li#responsive-tab {
+  display: none;
+  /* Hide for large screens */
+
+}
+#cssmenu > ul li {
+  display: inline-block;
+  *display: inline;
+  zoom: 1;
+}
+#cssmenu > ul li.right {
+  float: right;
+}
+#cssmenu > ul li.has-sub {
+  position: relative;
+}
+#cssmenu > ul li.has-sub:hover ul {
+  display: block;
+}
+#cssmenu > ul li.has-sub ul {
+  display: none;
+  width: 250px;
+  position: absolute;
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+  background: #ffffff;
+  border: 1px solid #ece6e8;
+  border-bottom: 3px solid #d9ced2;
+  border-top: 0 none;
+}
+#cssmenu > ul li.has-sub ul li {
+  display: block;
+}
+#cssmenu > ul li.has-sub > a {
+  background-image: url('http://cssmenumaker.com/sites/default/files/menu/299/caret.png');
+  background-repeat: no-repeat;
+  background-position: 90% -95%;
+}
+#cssmenu > ul li.has-sub > a.active,
+#cssmenu > ul li.has-sub > a:hover {
+  background: #d80041 url('http://cssmenumaker.com/sites/default/files/menu/299/caret.png') no-repeat;
+  background-position: 90% 195%;
+}
+#cssmenu > ul li a {
+  display: block;
+  padding: 12px 24px 11px 24px;
+  text-decoration: none;
+  color: #747474;
+  text-shadow: 0px 1px 0px #fff;
+}
+#cssmenu > ul li a.active,
+#cssmenu > ul li a:hover {
+  background: #d80041;
+  color: #fff;
+  text-shadow: 0px 1px 0px #000;
+}
+@media (max-width: 600px) {
+  #cssmenu > ul {
+    width: 100%;
+  }
+  #cssmenu > ul li#responsive-tab {
+    display: block;
+  }
+  #cssmenu > ul li#responsive-tab a {
+    background: url('http://cssmenumaker.com/sites/default/files/menu/299/menu.png') no-repeat;
+    background-position: 95% -35%;
+  }
+  #cssmenu > ul li#responsive-tab a:hover {
+    background-color: #d80041;
+    background-position: 95% 135%;
+  }
+  #cssmenu > ul li {
+    display: none;
+  }
+  #cssmenu > ul li.right {
+    float: none;
+  }
+  #cssmenu > ul li.has-sub {
+    position: relative;
+  }
+  #cssmenu > ul li.has-sub ul {
+    display: block;
+    position: static;
+    width: 100%;
+    background: #ffffff;
+    border: 0 none;
+  }
+  #cssmenu > ul li.has-sub ul li {
+    display: block !important;
+  }
+  #cssmenu > ul li.has-sub ul li a span {
+    display: block;
+    padding-left: 24px;
+  }
+  #cssmenu > ul li.has-sub > a {
+    background-image: none;
+  }
+}
+/* Make sure they show even if hidden in mobile view by JS */
+@media (min-width: 600px) {
+  #cssmenu > ul > li.collapsed {
+    display: inline-block !important;
+    *display: inline;
+    zoom: 1;
+  }
+  #cssmenu > ul ul li.collapsed {
+    display: block !important;
+  }
+}
+</style>
+
+            <div class="preview-container">
+		<div class="preview-menu" style="display: block;">
+            <div id="cssmenu">
+<ul><li id="responsive-tab"><a href="#">Menu</a></li>
+   <li class="active"><a href="index.html"><span>Home</span></a></li>
+   <li class="has-sub"><a href="#"><span>Products</span></a>
+      <ul>
+         <li><a href="#"><span>Product 1</span></a></li>
+         <li class="last"><a href="#"><span>Product 2</span></a></li>
+      </ul>
+   </li>
+   <li><a href="#"><span>About</span></a></li>
+   <li class="last"><a href="cikis.aspx"><span>Çıkış Yap</span></a></li>
+
+    <div style="float: right; margin-top: -30px; padding: 5px; width: 250px; text-align: right;">Hoş Gelidiniz <%=adi %> <%=soyadi %></div>
+</ul>
+</div>
+
+
+            
+		</div>
+		
+		<div class="preview-html" style="display: none;"><textarea readonly="readonly" style="height: 675px;">&lt;div id='cssmenu'&gt;
+&lt;ul&gt;
+   &lt;li class='active'&gt;&lt;a href='index.html'&gt;&lt;span&gt;Home&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
+   &lt;li class='has-sub'&gt;&lt;a href='#'&gt;&lt;span&gt;Products&lt;/span&gt;&lt;/a&gt;
+      &lt;ul&gt;
+         &lt;li&gt;&lt;a href='#'&gt;&lt;span&gt;Product 1&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
+         &lt;li class='last'&gt;&lt;a href='#'&gt;&lt;span&gt;Product 2&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
+      &lt;/ul&gt;
+   &lt;/li&gt;
+   &lt;li&gt;&lt;a href='#'&gt;&lt;span&gt;About&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
+   &lt;li class='last'&gt;&lt;a href='#'&gt;&lt;span&gt;Contact&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;</textarea></div>
+		<div class="preview-css" style="display: none;"><textarea readonly="readonly" style="height: 675px;"></textarea></div>
+		<div class="preview-images" style="display: none;"><ul class="files"><li class="clearfix"><a href="/sites/default/files/menu/320//bg.png" class="menu-image" target="_blank">bg.png</a></li></ul></div>
+		<div class="preview-jquery" style="display: none;"><textarea readonly="readonly" style="height: 675px;"></textarea></div>
+    <div class="menu-data" style="display: none;"><textarea readonly="readonly" id="menu-data" style="height: 675px;"></textarea></div>
+		
+
+	</div>
+
+
+
+
+        </div>
+    </header>
+
+
+    <div id="body">
+        <asp:ContentPlaceHolder runat="server" ID="FeaturedContent" />
+        <section class="content-wrapper main-content clear-fix">
+            <asp:ContentPlaceHolder runat="server" ID="MainContent" />
+        </section>
+    </div>
+
+    <footer>
+        <div class="content-wrapper">
+            <div class="float-left">
+                <p>Alt Bölüm</p>
+            </div>
+        </div>
+    </footer>
+
+
+    </form>
+</body>
+</html>
